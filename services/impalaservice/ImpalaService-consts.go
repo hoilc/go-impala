@@ -9,9 +9,9 @@ import (
 	"reflect"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/bippio/go-impala/services/status"
-	"github.com/bippio/go-impala/services/beeswax"
-	"github.com/bippio/go-impala/services/cli_service"
+	"github.com/kprotoss/go-impala/services/status"
+	"github.com/kprotoss/go-impala/services/beeswax"
+	"github.com/kprotoss/go-impala/services/cli_service"
 
 )
 
