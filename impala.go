@@ -3,7 +3,6 @@ package impala
 import (
 	"database/sql"
 	"io"
-	"io/ioutil"
 )
 
 func init() {
@@ -17,18 +16,24 @@ type Options struct {
 	Username string
 	Password string
 
-	UseLDAP      bool
-	UseTLS       bool
-	CACertPath   string
-	BufferSize   int
-	BatchSize    int
-	MemoryLimit  string
-	QueryTimeout int
+	UseLDAP          bool
+	UseTLS           bool
+	CACertPath       string
+	BufferSize       int
+	BatchSize        int
+	MemoryLimit      string
+	QueryTimeout     int
+	FetchRowsTimeout int
 
 	LogOut io.Writer
 }
 
 var (
 	// DefaultOptions for impala driver
-	DefaultOptions = Options{BatchSize: 1024, BufferSize: 4096, Port: "21050", LogOut: ioutil.Discard}
+	DefaultOptions = Options{
+		BatchSize:        1024,
+		BufferSize:       4096,
+		Port:             "21050",
+		LogOut:           io.Discard,
+		FetchRowsTimeout: 3 * 60 * 1000}
 )

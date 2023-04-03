@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/apache/thrift/lib/go/thrift"
+
 	"github.com/kprotoss/go-impala/services/cli_service"
 )
 
@@ -18,9 +19,10 @@ type Client struct {
 
 // Options for Hive Client
 type Options struct {
-	MaxRows      int64
-	MemLimit     string
-	QueryTimeout int
+	MaxRows          int64
+	MemLimit         string
+	QueryTimeout     int
+	FetchRowsTimeout int
 }
 
 // NewClient creates Hive Client
@@ -36,8 +38,9 @@ func NewClient(client thrift.TClient, log *log.Logger, opts *Options) *Client {
 func (c *Client) OpenSession(ctx context.Context) (*Session, error) {
 
 	cfg := map[string]string{
-		"MEM_LIMIT":     c.opts.MemLimit,
-		"QUERY_TIMEOUT_S": strconv.Itoa(c.opts.QueryTimeout),
+		"MEM_LIMIT":             c.opts.MemLimit,
+		"QUERY_TIMEOUT_S":       strconv.Itoa(c.opts.QueryTimeout),
+		"FETCH_ROWS_TIMEOUT_MS": strconv.Itoa(c.opts.FetchRowsTimeout),
 	}
 
 	req := cli_service.TOpenSessionReq{

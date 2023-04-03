@@ -34,6 +34,7 @@ func main() {
 	flag.StringVar(&opts.MemoryLimit, "mem-limit", "0", "memory limit")
 	flag.IntVar(&opts.QueryTimeout, "query-timeout", 0, "query timeout (in seconds)")
 	flag.IntVar(&timeout, "timeout", 0, "timeout in ms; set 0 to disable timeout")
+	flag.IntVar(&opts.FetchRowsTimeout, "fetch-timeout", 10000, "fetch rows timeout in ms")
 	flag.BoolVar(&verbose, "v", false, "verbose")
 	flag.Parse()
 
@@ -109,11 +110,11 @@ func query(ctx context.Context, opts *impala.Options, query string) error {
 	connector := impala.NewConnector(opts)
 
 	db := sql.OpenDB(connector)
-	
-	defer func () {
+
+	defer func() {
 		db.Close()
 	}()
-	
+
 	if err := db.PingContext(ctx); err != nil {
 		return err
 	}

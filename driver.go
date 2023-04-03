@@ -15,6 +15,7 @@ import (
 	"strings"
 
 	"github.com/apache/thrift/lib/go/thrift"
+
 	"github.com/kprotoss/go-impala/hive"
 	"github.com/kprotoss/go-impala/sasl"
 )
@@ -127,6 +128,15 @@ func parseURI(uri string) (*Options, error) {
 		opts.QueryTimeout = qTimeout
 	}
 
+	fetchRowsTimeout, ok := query["fetch-timeout"]
+	if ok {
+		fTimeout, err := strconv.Atoi(fetchRowsTimeout[0])
+		if err != nil {
+			return nil, err
+		}
+		opts.FetchRowsTimeout = fTimeout
+	}
+
 	return &opts, nil
 }
 
@@ -214,7 +224,10 @@ func connect(opts *Options) (*Conn, error) {
 		transport = thrift.NewTBufferedTransport(socket, opts.BufferSize)
 	}
 
-	protocol := thrift.NewTBinaryProtocol(transport, false, true)
+	protocol := thrift.NewTBinaryProtocolConf(transport, &thrift.TConfiguration{
+		TBinaryStrictRead:  thrift.BoolPtr(false),
+		TBinaryStrictWrite: thrift.BoolPtr(true),
+	})
 
 	if err := transport.Open(); err != nil {
 		return nil, err
@@ -224,9 +237,10 @@ func connect(opts *Options) (*Conn, error) {
 
 	tclient := thrift.NewTStandardClient(protocol, protocol)
 	client := hive.NewClient(tclient, logger, &hive.Options{
-		MaxRows:  int64(opts.BatchSize),
-		MemLimit: opts.MemoryLimit,
-		QueryTimeout: opts.QueryTimeout,
+		MaxRows:          int64(opts.BatchSize),
+		MemLimit:         opts.MemoryLimit,
+		QueryTimeout:     opts.QueryTimeout,
+		FetchRowsTimeout: opts.FetchRowsTimeout,
 	})
 
 	return &Conn{client: client, t: transport, log: logger}, nil
