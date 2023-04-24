@@ -24,6 +24,7 @@ type Options struct {
 	MemoryLimit      string
 	QueryTimeout     int
 	FetchRowsTimeout int
+	Database         string
 
 	LogOut io.Writer
 }
@@ -35,5 +36,6 @@ var (
 		BufferSize:       4096,
 		Port:             "21050",
 		LogOut:           io.Discard,
-		FetchRowsTimeout: 3 * 60 * 1000}
+		FetchRowsTimeout: 3 * 60 * 1000,
+		Database:         "default"}
 )

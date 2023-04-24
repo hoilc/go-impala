@@ -23,6 +23,7 @@ type Options struct {
 	MemLimit         string
 	QueryTimeout     int
 	FetchRowsTimeout int
+	Database         string
 }
 
 // NewClient creates Hive Client
@@ -41,6 +42,7 @@ func (c *Client) OpenSession(ctx context.Context) (*Session, error) {
 		"MEM_LIMIT":             c.opts.MemLimit,
 		"QUERY_TIMEOUT_S":       strconv.Itoa(c.opts.QueryTimeout),
 		"FETCH_ROWS_TIMEOUT_MS": strconv.Itoa(c.opts.FetchRowsTimeout),
+		"use:database":          c.opts.Database,
 	}
 
 	req := cli_service.TOpenSessionReq{

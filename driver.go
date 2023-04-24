@@ -76,6 +76,11 @@ func parseURI(uri string) (*Options, error) {
 	opts.Host = host
 	opts.Port = port
 
+	db := strings.TrimPrefix(u.Path, "/")
+	if db != "" {
+		opts.Database = db
+	}
+
 	query := u.Query()
 	auth := query.Get("auth")
 	if auth == "ldap" {
@@ -241,6 +246,7 @@ func connect(opts *Options) (*Conn, error) {
 		MemLimit:         opts.MemoryLimit,
 		QueryTimeout:     opts.QueryTimeout,
 		FetchRowsTimeout: opts.FetchRowsTimeout,
+		Database:         opts.Database,
 	})
 
 	return &Conn{client: client, t: transport, log: logger}, nil
