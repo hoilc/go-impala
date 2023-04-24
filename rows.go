@@ -4,7 +4,7 @@ import (
 	"database/sql/driver"
 	"reflect"
 
-	"github.com/kprotoss/go-impala/hive"
+	"github.com/hoilc/go-impala/hive"
 )
 
 // Rows is an iterator over an executed query's results.

@@ -11,9 +11,9 @@ import (
 	thrift "github.com/apache/thrift/lib/go/thrift"
 	"strings"
 	"regexp"
-	"github.com/kprotoss/go-impala/services/status"
-	"github.com/kprotoss/go-impala/services/beeswax"
-	"github.com/kprotoss/go-impala/services/cli_service"
+	"github.com/hoilc/go-impala/services/status"
+	"github.com/hoilc/go-impala/services/beeswax"
+	"github.com/hoilc/go-impala/services/cli_service"
 
 )
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/kprotoss/go-impala/services/cli_service"
+	"github.com/hoilc/go-impala/services/cli_service"
 )
 
 // Operation represents hive operation

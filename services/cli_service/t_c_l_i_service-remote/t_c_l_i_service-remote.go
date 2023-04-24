@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 	thrift "github.com/apache/thrift/lib/go/thrift"
-	"github.com/kprotoss/go-impala/services/cli_service"
+	"github.com/hoilc/go-impala/services/cli_service"
 )
 
 var _ = cli_service.GoUnusedProtection__

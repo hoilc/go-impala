@@ -1,4 +1,4 @@
-module github.com/kprotoss/go-impala
+module github.com/hoilc/go-impala
 
 go 1.19
 

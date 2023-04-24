@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/kprotoss/go-impala/hive"
+	"github.com/hoilc/go-impala/hive"
 )
 
 // Conn to impala. It is not used concurrently by multiple goroutines.

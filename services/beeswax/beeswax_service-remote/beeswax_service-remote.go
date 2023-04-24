@@ -13,8 +13,8 @@ import (
 	"strconv"
 	"strings"
 	thrift "github.com/apache/thrift/lib/go/thrift"
-	"github.com/kprotoss/go-impala/services/hive_metastore"
-	"github.com/kprotoss/go-impala/services/beeswax"
+	"github.com/hoilc/go-impala/services/hive_metastore"
+	"github.com/hoilc/go-impala/services/beeswax"
 )
 
 var _ = hive_metastore.GoUnusedProtection__
